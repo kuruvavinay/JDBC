@@ -1,0 +1,33 @@
+Properties
+-----------
+data in K-V pairs
+rep obj of type jva.util.Properties
+if we change the data several times in our src code..we need not recompile everytime that's one of the adv of properties
+
+Firstly..initialize FileInputStream(fis obj) to get file(.properties) to java.
+FileInputStram fis=new FileInputStream("text.properties");
+
+then create properties obj..then load the fis using properties obj
+Properties properties=new Properties();
+properties.load(fis);
+
+to get the value corresponding to its key use getProperty()
+String url=properties.getProperty("url")
+String user=properties.getProperty("uname")
+String pwd=properties.getProperty("pwd")
+
+Suppose the text.properties be like
+(keys)url=jdbc:/localhost/...(vals)
+user=vinay
+pwd=1234
+
+suppose if we change the values in the file...we need not recompile the java file again..
+
+Life cycle of Query Exec
+-------------------------
+java app sends a quer to db engine..
+tht query is compiled..compilation invloves 3 steps
+->Query Tokenization(Stream of TOkens)
+->Parsing(Query Tree)
+->Query Optimization(Optimized query tree) is executed..and is sent to db engine..
+the O/P is sent to java app in the form ResultSet or int rowCount...

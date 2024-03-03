@@ -1,0 +1,39 @@
+TYPES of RESULT SET
+--------------------
+Division - 1 :
+
+1.Read-Only ResultSet(static RS)
+2.Updatable ResultSet(dynamic RS)
+
+Division - 2:
+
+1.Forward only ResultSet(Non-Scrollable)
+2.Scrollable RS
+	a.Scroll Insensitive RS
+	b.Scroll Sensitive RS
+
+By default...ResultSet is Static and Non-Scrollable
+
+To specify resultSet to act as scrollable we shud mention some methods in statement itself.
+
+ResultSet.TYPE_SCROLL_INSENSITIVE
+ResultSet.CONCUR_UPDATABLE
+
+we use resultSet.next() to move the resultSet pointer in fwd direction till the records exist.
+
+After that since the pointer is at last record of the table...we can use resultSet.prev() to move in backward direction
+
+resultSet.first() -> to move the pointer to first record.
+
+resultSet.last() -> to move the pointer to last record.
+
+resultSet.absolute(4) -> from the beginning 4th row is selected
+
+resultSet.relative(2) -> from the current pointer...selects 2nd row..let's say with absolute(4) we're now at 4th row..and it selects 2nd row from 4 which is 6th row.
+
+if the val provided is negative then it will move in backward direction.
+
+resultSet.relative(-2) -> this will select 2nd row from the 4th row in backward direction which is 2nd row.
+
+resultSet.last() & resultSet.absolute(-1) are same
+

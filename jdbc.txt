@@ -1,0 +1,91 @@
+Acc. to DBA specification..SQL cmds are categorized into
+1.DDL(create,alter,drop...)
+2.DML(inser,update,delete...)
+3.DQL(select)
+4.DCL(Alter,Grant...)
+5.DA(start audit,stop audit...)
+6.TCL(commit,rollback,savepoint)
+
+Acc. to Java Dev..all SQL operations are into 2 types
+1.Select oper(DQL)
+2.Non-select oper(DML)
+For executing queries we've 3 methods using statement obj...
+
+1.executeQuery()
+-> for select operations
+statement.executeQuery(sqlselectquery)
+return type is resultSet..which is list of col's.
+
+2.executeUpdate()
+-> for non-select operations
+statement.executeUpdate(sqlnonquery)
+eg:sqlnonquery="delete from employee where eno=7"
+return type is int..which results in no.of rows affected
+
+3.execute()
+->used in the situations if we aren't aware whether the query is select or non-select.
+return type is boolean
+
+
+6 steps
+---------
+1.Load & Register a Driver
+->we need to l & r the driver as per DB req.
+to set JRE env with DB env
+implementation class of MySQL is "Driver"
+Class.forName("com.mysql.cj.jdbc.Driver") -> to load
+bt it isn't req..since jdk has an autoloading feature..meant it can find the class in META-INF folder of jar file.
+
+2.Establish the Connection
+->public static Connection getConnection(String,String,String) throws java.sql.SQLException...also have 2 other types
+Connection connection=DriverManager.getConnection(url,uname,pwd)
+
+To get the class name of object which is implemented -> connection(obj name).getClass().getName()
+
+3.Create Statement and send the Query
+->Statement statement=connection.createStatement();
+String sqlselectquery="select sid,sname,sage,smarks from student";
+ResultSet resultSet= statement.executeQuery(sqlselectquery) -> wkt..executequery() is for select java queries...
+
+4.Process the ResultSet
+->we should read the data...so we use getters.
+resultSet is ntg bt a wrapped data and its associate members into a single unit which is a Encapsulation.
+while(resultSet.next()){
+Integer sid=resultSet.getInt(1 or "sid") -> here 1 is a col no..or we can use col name which is "sid"
+String sname=resultSet.getString(2 or "sname")
+
+so on....
+
+}
+
+5.Handle SQLException if it gets.
+catch(SQLException se){
+se.printStackTrace();
+}
+
+6.Close the connection
+->finally{	->used for closing or clearing resources
+if(connection!=null){
+try{
+connection.close();
+}
+catch(SQLException se){
+se.printStackTrace();
+}
+
+
+Formatting the dynamic input
+-----------------------------
+For ex..insertquery=insert into employee(empid,empname,empaddr) values(7,"John","DC");
+we predefined values initially in the above line
+To take the input values dynamically..we use scanner							//Unnecessary
+int empid=sc.nextInt();
+String empname=sc.next();
+String empaddr=sc.next();
+"insert into employee('empid','empname','empaddr')values("+empid+",'"+empname+"','"+empaddr+"')";
+but this approach isn't recommended when we're dealing with large no.of col's.
+
+For this we've a method...
+String insertquery=String.format("insert into employee('empid','empname','empaddr') values('%s',%d,'%s')",empid,empname,empaddr)
+where in values %s,%d stands for the datatypes of corresponding variables.                                ---------------------->these are object args
+which represents the variable names...

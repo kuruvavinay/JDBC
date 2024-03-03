@@ -1,0 +1,46 @@
+In programming if any code is to be execute repeatedly...we those lines under a method.
+Likewise in db prgming...if grp of sql stmts are required repeatedly we group those lines called STORED PROCEDURES.
+
+-> stored permanently inside db for future usage.
+-> creaded by DataBase Admin(DBA)
+
+IN sql...there's a lang to create Stored Procedure called Stored Procedure Language.
+
+3 Parameters
+-> IN (provide input val)
+-> OUT (provide output val)
+-> INOUT (to provide and to collect op)
+
+Example
+--------
+DELIMITER $$
+CREATE 
+	PROCEDURE `me`.`E_GET_EMPLOYEE_DETAILS_BY_ID`(IN eid INT,OUT ename varchar(255),OUT eage int)
+    BEGIN
+		SELECT name,age into ename,eage from emp where eid=id;
+	END$$
+DELIMITER ;
+
+Similar to calling a method in programming...we call this Stored Procedure using CALL.
+
+CALL `E_GET_EMPLOYEE_DETAILS_BY_ID`(7,@ename,@eage);
+
+and then using select display the result
+
+select @ename,@eage;
+
+
+In this example we used ID as an IN parameter...which will generally be unique
+we should mention the id whenever we CALL the procedure...
+
+In jdbc...the CALL should be inside {}(braces)
+We've a method prepareCall...to connect to the given procedureCall with Callble Stmt.
+For the OUT parameters...we shud use the method registerOutParameter
+
+instead executeQuery() and executeUpdate()...we should use execute() for storedProcedures.
+Since it's neither a select query nor a non-select query.
+
+To retrieve those values with diff datatypes...for ex if there are int in both java and sql.
+
+But there are String and varchar which peforms same thing bt diff datatypes..
+To resolve this..we use jdbc datatypes...which are TYPES.INTEGER,VARCHAR etc....

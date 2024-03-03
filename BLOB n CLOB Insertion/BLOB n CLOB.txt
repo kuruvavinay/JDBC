@@ -1,0 +1,15 @@
+There are 2 types of large objects 
+BLOB(Binary Large Object) -> images,videos...the datatype is largeblob
+CLOB(Character Large Object) ->text files,pdf etc..
+
+Insering image into sql with java
+----------------------------------
+using scanner we should give the input of image location
+using PreparedStatement..we use methods like setString(),setInt() for strings and int types respectively.
+In case of blobs..we use setBinaryStream..
+pstmt.setBinaryStream(3,FileInputStream(new File(imgloc)));
+
+FileInputStream is for reading data from a file in the form of bytes.
+
+In case of CLOB...we use setCharacterStream and since they're chars we use FileReader.
+pstmt.setCharacterStream(3,FileReader(new File(pdfloc)));

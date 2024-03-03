@@ -1,0 +1,18 @@
+For a query to be exceute completely..time taking includes..(request time+compilation time+execution time+response time)
+
+using normal statement..same query should compile everytime when the value changes..
+For ex..the query is like select * from id=8..in this query the id may change sometime but the query is same.
+
+For increasing performance..we use PreparedStatement...also called PreCompiled Query
+the query corresponding to prepare statement is like..
+
+String sqlnonselectquery="insert into student('name','branch','marks') values(?,?,?)
+qn marks can be treated as col no's starting from 1.
+PreparedStatement pstmt=con.prepareStatement(sqlnonselectquery);
+to set the values
+pstmt.setString(1,"Vinay")-> 1 is a col no.
+pstmt.setString(2,"CSE")
+pstmt.setInt(3,50)
+since it's a non-select query we use executeUpdate()
+int affected=pstmt.executeUpdate();
+

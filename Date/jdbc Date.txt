@@ -1,0 +1,18 @@
+In sql...we may see some cols like dob which needed date to be inserted.
+By using date in java which is java.util.Date()...we get date and time too..which isn't valid in db.
+Acc.to usage we should format the date...let's say in sql the date will be in format yyyy-MM-dd.
+But in other db's lyk oracle...this will be diff for ex....MM-dd-yyyy
+So...this variation makes us to PreparedStatemet rather than Statement.
+
+if the input given for mysql is OTHER than yyyy-MM-dd..we should use SimpleDateFormat
+
+dob=sc.next();
+SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy") -> this date should be the format which equals input string
+java.util.Date udob=sdf.parse(dob); ->parse method of SDF is for converting string to date obj.
+long val=udob.getTime() ->this method returns no. of milliseconds from jan 1970,00:00:00
+java.sql.Date sqldob=new java.sql.Date.(val); -> using the obtained milliseconds the date is created for sql db.
+pstmt.setDate(1,sqldob);
+
+if the input given is in the format yyyy-MM-dd...we should convert directly using valueOf()
+dob=sc.next()
+java.sql.Date sqldob=new java.sql.Date.valueOf(dob);
